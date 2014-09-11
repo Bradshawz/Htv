@@ -1,0 +1,27 @@
+<section id="header" class="appear"></section>
+<div class="navbar navbar-fixed-top" ng-controller="NavCtrl" role="navigation">
+   <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="fa fa-bars color-white"></span>
+      </button>
+      <h1><a class="navbar-brand" href="/#/">      Hatchling
+      </a></h1>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="#/watch">Watch</a></li>
+        <li ng-hide="signedIn()"><a href="#/register">Register</a></li>
+        <li ng-show="!signedIn()"><a href="#/login">Log In</a></li>
+        <li ng-show="signedIn()"><a href="#/favourites/{{ currentUser.username }}">Favourites</a></li>
+        <li ng-show="signedIn()"><a href="#/createchannel/{{ currentUser.username }}">My Channels</a></li>
+        <li ng-show="signedIn()">
+          <a href="#/users/{{ currentUser.username }}"> {{ currentUser.username }}</a>
+        </li>
+        <li ng-show="signedIn()">
+          <a class="pointer" ng-click="logout()">Logout</a>
+        </li>
+      </ul>
+    </div><!--/.navbar-collapse -->
+  </div>
+</div>

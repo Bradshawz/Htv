@@ -1,0 +1,21 @@
+<div class="container mar-top88 min-height900">
+
+<div class="auth-forms">
+  <h2>Register</h2>
+
+  <form ng-submit="register()" name="form">
+    <div ng-show="error || form.username.$error || form.password.$error">
+      <p ng-show="error" class="text-danger">{{ error }}</p>
+      <p ng-show="form.username.$error.taken" class="text-danger">Username is already taken.</p>
+      <p ng-show="form.username.$error.invalid" class="text-danger">Username contains invalid characters.</p>
+      <p ng-show="form.password.$error.mismatch" class="text-danger">Passwords are not matching.</p>
+      <p ng-show="form.short.$error.short" class="text-danger">Password needs to be at least 6 characters.</p>
+    </div>
+    <input type="email" ng-model="user.email" placeholder="Email" class="form-control" required><br>
+    <input maxlength="20" type="text" ng-model="user.username" placeholder="Username" name="username" check-username class="form-control" required><br>
+    <input type="password" name="short" ng-model="user.password" short="user.password" placeholder="Password" class="form-control" required><br>
+    <input type="password" ng-model="user.samePassword" name="password" match="user.password" placeholder="Retype Password" class="form-control" required><br>
+    <input type="submit" value="Register" class="btn btn-primary" ng-disabled="form.$invalid"/>
+  </form>
+</div>
+</div>

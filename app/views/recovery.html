@@ -1,0 +1,16 @@
+<div class="container mar-top88 min-height900">
+
+<div class="auth-forms">
+  <h2>Password Reset</h2>
+
+  <form ng-submit="emailReset()" form-autofill-fix>
+  	<div ng-show="error || success">
+  		<p ng-show="error" class="text-danger">{{ error }}</p>
+  		<p ng-show="success" class="text-success">{{ success }}</p>
+  	</div>
+    <input type="email" ng-model="email" placeholder="Email" class="form-control" required><br>
+    <input type="submit" value="Reset Password" class="btn btn-primary"/>
+  </form>
+</div>
+
+</div>

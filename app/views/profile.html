@@ -1,0 +1,29 @@
+<div class="min-height900 container mar-top88">
+	<h1>{{username}}</h1>
+	<h1 class="align-center mar-top88">Channels</h1>
+	<div class="profile-shows">
+		<div class="arrow-holder"><div class="arrow-left" ng-click="goLeftChannels()" ng-hide="noChanLeft"></div></div>
+		<div class="float-left profile-show-box" ng-repeat="channel in shownChannels">
+			<div class="viewer-category-box">
+				<div class="category-box align-center">
+					<a data-toggle="tooltip" data-placement="bottom" title="{{ channel.name }}" href="#/watch/all/{{ channel.$id }}">{{ channel.name }}</a> 
+				</div>
+				<img class="thumbnail mar-left28p mar-top10" align="middle" src="{{ channel.img }}">
+			</div>
+		</div>
+		<div class="arrow-right" ng-click="goRightChannels()" ng-hide="noChanRight"></div>
+	</div>
+	<h1 class="align-center">Favourites</h1>
+	<div class="profile-shows">
+		<div class="arrow-holder"><div class="arrow-left" ng-click="goLeftFavourites()" ng-hide="noFavLeft"></div></div>
+		<div class="float-left profile-show-box" ng-repeat="favourite in shownFavourites track by $index">
+				<div class="viewer-category-box">
+				<div class="category-box align-center">
+					<a data-toggle="tooltip" data-placement="bottom" title="{{ favourite.name }}" href="#/watch/all/{{ favourite.$id }}">{{ favourite.name }}</a> 
+				</div>
+				<img class="thumbnail mar-left28p mar-top10" align="middle" src="{{ favourite.img }}">
+			</div>
+		</div>
+		<div class="arrow-right" ng-click="goRightFavourites()" ng-hide="noFavRight"></div>
+	</div>
+</div>

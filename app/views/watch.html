@@ -1,0 +1,26 @@
+<section class="mar-top35 container watch-height" ng-cloak>
+	<div class="mar-top35 align-center">
+		<h2 class="slogan">Categories</h2>
+		<div class="mar-top35">
+			<div class="float-left col-xs-6 col-md-3 mar-top20 mar-bot40" ng-hide="hideAll">
+				<div class="viewer-category-box">
+					<div class="category-box align-center">
+						<a data-toggle="tooltip" data-placement="bottom" title="All" href="#/watch/all">All</a>
+					</div>
+					<div class="mar-top35"> viewers: {{ people }} </div>
+				</div>
+			</div>
+			<div class="float-left col-xs-6 col-md-3 mar-top20 mar-bot40" ng-repeat="category in showCategories | orderBy: 'priority':true">
+				<div class="viewer-category-box">
+					<div class="category-box align-center">
+						<a data-toggle="tooltip" data-placement="bottom" title="{{ category.category }}" href="#/watch/{{ category.category }}">{{ category.category }}</a> 
+					</div>
+					<div class="mar-top35"> viewers: {{ category.priority }} </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+	<div class="align-center">
+		<pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm auto-align-pagination" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="numItemsPage" ng-change="pageChanged()"></pagination>
+	</div>

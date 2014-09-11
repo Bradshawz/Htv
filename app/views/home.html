@@ -1,0 +1,83 @@
+<section class="featured" ng-hide="signedIn()">
+	<div class="container"> 
+		<div class="row mar-bot40">
+			<div class="col-md-6 col-md-offset-3">
+				
+				<div class="align-center">
+					<i class="icon-egg big-egg"></i>
+					<h2 class="slogan">Welcome to Hatchling</h2>
+					<p>
+					Hatchling is an attempt to recreate the television experience through the internet. Create your own channel, or surf through other user created channels to find videos that you enjoy.
+					</p>
+				</div>
+			</div>
+		</div>
+		<span class="float-left big-link"><a href="#/watch">WATCH</a></span><span class="float-right big-link"><a href="#/register">SIGN-UP</a></span>
+	</div>
+</section>
+
+<!-- services -->
+<section id="section-services" class="section pad-bot30 bg-white" ng-hide="signedIn()">
+<div class="container"> 
+
+	<div class="row mar-bot30">
+		<div class="col-lg-4" >
+			<div class="align-center">
+				<i class="fa fa-comments fa-5x mar-bot20"></i>
+				<h4 class="text-bold">Watch Together</h4>
+				<p>Watch and talk about the videos together, in real time! You can enjoy the same moments in videos with friends, or just talk to strangers about what you are watching.
+				</p>
+			</div>
+		</div>
+			
+		<div class="col-lg-4" >
+			<div class="align-center">
+				<i class="fa icon-tv fa-5x mar-bot20"></i>
+				<h4 class="text-bold">Find New Content</h4>
+				<p>Surf from channel to channel to find videos right for you. Favourite the channel, and come back to enjoy more videos later.
+				</p>
+			</div>
+		</div>
+	
+		<div class="col-lg-4" >
+			<div class="align-center">
+				<i class="fa fa-list-ol fa-5x mar-bot20"></i>
+				<h4 class="text-bold">Create Dynamic Playlists</h4>
+				<p>Share your favourite videos with the world. You can create and moderate your own mini tv channel, whether you want to share a playlist of your favourite gaming, news, sports, music or other type of video it is up to you.
+				</p>
+			</div>
+		</div>
+	</div>	
+</div>
+</section>
+
+<section ng-hide="!signedIn()">
+	<div class="background-green">
+		<div class="container">
+			<a href="#/watch" class="unstyled-hyperlink">
+				<div class="col-xs-offset-2 col-xs-3 four-boxes align-center">
+					<i class="fa icon-tv fa-5x mar-top20p"></i>
+					<div class="fa-2x mar-top20">Watch</div>
+				</div>
+			</a>
+			<a href="#/favourites/{{ currentUser.username }}" class="unstyled-hyperlink">
+				<div class="col-xs-offset-2 col-xs-3 four-boxes align-center">
+					<i class="fa fa-heart fa-5x mar-top20p"></i>
+					<div class="fa-2x mar-top20">Favourites</div>
+				</div>
+			</a>
+			<a href="#/settings/{{ currentUser.username }}" class="unstyled-hyperlink">
+				<div class="col-xs-offset-2 col-xs-3 four-boxes align-center">
+					<i class="fa fa-gear fa-5x mar-top20p"></i>
+					<div class="fa-2x mar-top20">Settings</div>
+				</div>
+			</a>
+			<a href="#/createchannel/{{ currentUser.username }}" class="unstyled-hyperlink">
+				<div class="col-xs-offset-2 col-xs-3 four-boxes align-center">
+					<i class="fa fa-flask fa-5x mar-top20p"></i>
+					<div class="fa-2x mar-top20">Create</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</section>

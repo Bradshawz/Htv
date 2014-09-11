@@ -1,0 +1,25 @@
+<section class="mar-top35 container min-height900" ng-cloak>
+	<div class="mar-top35 align-center">
+		<h2>My Channels</h2>
+		<div class="mar-top35">
+			<div class="float-left col-xs-6 col-md-4 mar-top20 mar-bot40" ng-repeat="(channelId, channel) in channels">
+				<div class="create-channel-box">
+					<div class="category-box align-center">
+						<a data-toggle="tooltip" data-placement="bottom" title="{{ channel.name }}" href="#/createchannel/{{ user.username }}/{{ channelId }}">{{ channel.name }}</a> 
+					</div>
+					<img class="create-thumbnail mar-top20" align="middle" src="{{ channel.img }}">
+					<div class="mar-top88">
+						<div class="mar-top40"> Viewers: {{ channel.viewers }} </div>
+						<div class="mar-top10"> Total Views: {{ channel.info.totalViews.$value }} </div>
+						<div class="mar-top10"> Favourites: {{ channel.info.favourites.$value }} </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-hide="maxChannels" class="float-left create-channel-height col-xs-6 col-md-4 mar-top20 mar-bot40">
+		<div ng-click="open()" class="circle pointer">
+			<span class="mar-top20 fa fa-5x glyphicon glyphicon-plus"></span>
+		</div>
+	</div>	
+</section>

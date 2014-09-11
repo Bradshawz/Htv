@@ -1,0 +1,86 @@
+<div class="container mar-top40 mar-bot40 min-height1100">
+		<h1 class="mar-top30"> {{ showProgramRef.name }} </h1>
+		<button data-toggle="tooltip" data-placement="bottom" title="Current Viewers" class="viewers-chat float-right btn btn-primary" ng-click="nameViewers()" ng-hide="hideChat"><i class="fa fa-user"></i></button>
+		<button data-toggle="tooltip" data-placement="bottom" title="Toggle Chat" class="float-right close-chat btn btn-primary" ng-click="hideChat = !hideChat"><i class="fa fa-toggle-down"></i></button>
+		<div ng-class="{true: 'col-xs-10', false: 'col-xs-8'}[hideChat]">
+			<div id="fullscreen" class="video-wrapper gray">
+				<youtube-video id="youtube" video-time="videoTime" video-url="videoUrl"></youtube-video>
+			</div>
+			<div class="float-right mar-right20 mar-top10"> 
+				<span class="mar-left20" data-toggle="tooltip" data-placement="bottom" title="Current Viewers">{{ viewers }} <i class="fa fa-user"></i></span>
+				<span class="mar-left20" data-toggle="tooltip" data-placement="bottom" title="Total Views">{{ totalViews }} <i class="fa fa-eye"></i></span>
+				<span class="mar-left20" data-toggle="tooltip" data-placement="bottom" title="Favourites">{{ totalFavourites }} <i class="fa fa-heart"></i></span>
+			</div>
+			<div class="float-left mar-top20">
+				<button class="btn btn-primary" ng-click="gotoCurrent()"> Current </button>
+				<button class="btn btn-primary" ng-click="nextVideo()"> Next </button>
+				<button class="btn btn-primary" ng-click="makeFullscreen()"> Fullscreen </button>
+				<button class="btn btn-primary" ng-click="follow()" ng-show="!follower && !randomPerson"> Favourite </button>
+				<button class="btn btn-primary" ng-click="unfollow()" ng-show="follower && !randomPerson"> Unfavourite </button>
+			</div>
+		</div>
+		<div class="chat-block" ng-hide="hideChat">
+			<div ng-hide="chatPeople" class="messages-div" id="messages">
+				<div ng-repeat="(messageId, message) in chat">
+					<a class="chat-username" href="#/users/{{ message.username }}">{{ message.username }}</a> <span class="chat-text">: {{ message.message }}</span> 
+					<a ng-if="(amOwner() || amModerator(message.username)) && notDeleted(message.message)" ng-click="deleteComment(messageId)"><i class="fa fa-times pointer" data-toggle="tooltip" data-placement="bottom" title="Delete"></i></a>
+					<a ng-if="amOwner() && canMakeMod(message.username)" ng-click="makeModerator(message.username)"><i class="fa fa-smile-o pointer" data-toggle="tooltip" data-placement="bottom" title="Make Moderator"></i></a> 
+					<a ng-if="amOwner() && canUnMod(message.username)" ng-click="removeModerator(message.username)"><i class="fa fa-frown-o pointer" data-toggle="tooltip" data-placement="bottom" title="Remove Moderator"></i></a>
+				</div>
+			</div>
+			<div ng-hide="!chatPeople" class="messages-div" id="messages">
+				<h3 class="mar-bot0"> Owner </h3>
+				<a class="chat-username" href="#/users/{{ channelOwner }}"> {{ channelOwner }} </a>
+				<h3 class="mar-top20 mar-bot0"> Moderators </h3>
+				<div ng-repeat="person in showProgramRef.moderators"> 
+					<a class="chat-username" href="#/users/{{ person }}">{{ person }}</a> 
+					<a ng-if="amOwner() && canMakeMod(person)" ng-click="makeModerator(person)"><i class="fa fa-smile-o pointer" data-toggle="tooltip" data-placement="bottom" title="Make Moderator"></i></a> 
+					<a ng-if="amOwner() && canUnMod(person)" ng-click="removeModerator(person)"><i class="fa fa-frown-o pointer" data-toggle="tooltip" data-placement="bottom" title="Remove Moderator"></i></a>
+				</div>
+				<h3 class="mar-top20 mar-bot0"> Viewers </h3>
+				<div ng-repeat="person in peopleInChat">
+					<a class="chat-username" href="#/users/{{ person }}">{{ person }}</a>
+					<a ng-if="amOwner() && canMakeMod(person)" ng-click="makeModerator(person)"><i class="fa fa-smile-o pointer" data-toggle="tooltip" data-placement="bottom" title="Make Moderator"></i></a> 
+					<a ng-if="amOwner() && canUnMod(person)" ng-click="removeModerator(person)"><i class="fa fa-frown-o pointer" data-toggle="tooltip" data-placement="bottom" title="Remove Moderator"></i></a>
+				</div>
+			</div>
+			<form name="chatForm" ng-submit="addComment()" class="submit-message">
+				<textarea type="text" placeholder="message" class="form-control" ng-model="message" enter-submit="addComment()" maxlength="500"></textarea><br>
+				<p class="text-danger" ng-show="signUp">{{ signUp }}</p>
+				<input type="submit" class="btn btn-primary float-right" value="Chat" id="submit"/>
+			</form>
+		</div>
+
+	<div ng-hide="false">
+		<div class="col-md-4 program-time">
+			<div class="pickdate">
+				<p class="input-group">
+				<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-change="changed()" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+			</div>
+
+			<div class="pick-time">
+				<timepicker ng-model="dt" show-meridian="ismeridian" ng-change="changed()"></timepicker>
+			</div>
+		</div>
+
+		<div class="television-box col-xs-12">
+			<div class="col-xs-10 inline-block">
+				<ul class="no-style-list two-times">
+					<li ng-repeat="time in twoTimes track by $index" ng-style="resizeTimes($index)" class="show-time"> {{ time }} </li>
+				</ul>
+				<div class="gray-box">
+					<ul class="program-shows no-style-list">	
+						<li ng-repeat="content in programArray track by $index" ng-style="resizeProgram(content.fakeLength, $index, content.end)" class="show-set" ng-click="deleteProgram(content)"><span data-toggle="tooltip" data-placement="bottom" title="{{ content.title }}"> {{ content.title }} </span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<button class="btn btn-primary arrows float-left inline-block" ng-click="goLeft()"><i class="fa fa-arrow-left"></i></button>
+<button class="btn btn-primary arrows float-right mar-right40 inline-block" ng-click="goRight()"><i class="fa fa-arrow-right"></i></button>
